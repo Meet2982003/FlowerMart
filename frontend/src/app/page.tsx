@@ -9,10 +9,11 @@ import PhotoCarousel from "@/components/PhotoCarousel";
 import VaseFlowerSection from "@/components/VaseFlowerSection";
 import ContactSection from "@/components/ContactSection";
 import AboutUs from "@/components/AboutUs";
+import AdminPortalView from "@/components/AdminPortalView";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export default function HomePage() {
-  const [currentView, setCurrentView] = useState<"home" | "about">("home");
+  const [currentView, setCurrentView] = useState<"home" | "about" | "admin">("home");
 
   const handleOpenAbout = () => {
     setCurrentView("about");
@@ -24,16 +25,24 @@ export default function HomePage() {
     window.scrollTo({ top: 0, behavior: "instant" });
   };
 
+  const handleOpenAdmin = () => {
+    setCurrentView("admin");
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+
   return (
     <SmoothScroll>
       <Header
         currentView={currentView}
         onAboutClick={handleOpenAbout}
         onHomeClick={handleOpenHome}
+        onAdminClick={handleOpenAdmin}
       />
 
       {currentView === "about" ? (
         <AboutUs onBack={handleOpenHome} />
+      ) : currentView === "admin" ? (
+        <AdminPortalView onBack={handleOpenHome} />
       ) : (
         <main className="landing-main-wrapper">
           {/* Screen 1: Hero Landing View */}

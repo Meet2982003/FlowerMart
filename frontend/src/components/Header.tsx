@@ -1,18 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { scrollToSection } from "./SmoothScroll";
 
 interface HeaderProps {
-  currentView?: "home" | "about";
+  currentView?: "home" | "about" | "admin";
   onAboutClick?: () => void;
   onHomeClick?: () => void;
+  onAdminClick?: () => void;
 }
 
 export default function Header({
   currentView = "home",
   onAboutClick,
   onHomeClick,
+  onAdminClick,
 }: HeaderProps) {
   const [lang, setLang] = useState<"NL" | "EN">("EN");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,12 +37,12 @@ export default function Header({
       return;
     }
 
-    if (currentView === "about") {
+    if (currentView === "about" || currentView === "admin") {
       onHomeClick?.();
     }
 
     if (sectionId) {
-      if (currentView === "about") {
+      if (currentView === "about" || currentView === "admin") {
         setTimeout(() => scrollToSection(sectionId), 200);
       } else {
         scrollToSection(sectionId);
@@ -116,6 +119,37 @@ export default function Header({
             EN
           </button>
         </div>
+
+        {/* Minimalist Profile / Admin Avatar Button */}
+        <button
+          type="button"
+          className={`header-avatar-btn ${currentView === "admin" ? "active" : ""}`}
+          onClick={(e) => {
+            e.preventDefault();
+            if (currentView === "admin") {
+              onHomeClick?.();
+            } else {
+              onAdminClick?.();
+            }
+          }}
+          aria-label="Admin Portal"
+          title="Admin Portal"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="avatar-svg-icon"
+          >
+            <circle cx="12" cy="7.5" r="4.2" fill="currentColor" />
+            <path
+              d="M4.5 19.5C4.5 15.5 8 13.5 12 13.5C16 13.5 19.5 15.5 19.5 19.5C19.5 20.2 19 20.5 18.2 20.5H5.8C5 20.5 4.5 20.2 4.5 19.5Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
 
         <a href="#webshop" className="header-btn">
           Webshop

@@ -159,6 +159,46 @@ body {
   gap: 16px;
 }
 
+.header-avatar-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d1cfcb;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-avatar-btn:hover {
+  background: rgba(240, 90, 34, 0.18);
+  border-color: rgba(240, 90, 34, 0.6);
+  color: #ffffff;
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 4px 14px rgba(240, 90, 34, 0.28);
+}
+
+.header-avatar-btn.active {
+  background: rgba(240, 90, 34, 0.25);
+  border-color: #F05A22;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(240, 90, 34, 0.45);
+}
+
+.avatar-svg-icon {
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.header-avatar-btn:hover .avatar-svg-icon {
+  transform: scale(1.08);
+}
+
 .lang-switcher {
   display: flex;
   align-items: center;
