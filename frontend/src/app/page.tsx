@@ -39,7 +39,7 @@ export default function HomePage() {
           {/* Screen 1: Hero Landing View */}
           <HeroSection />
 
-          {/* Screen 2: Warm Cream Logistics Intro with Hanging Bloom */}
+          {/* Screen 2: Soft Petal Pink Logistics Intro with Hanging Bloom */}
           <IntroSection onAboutClick={handleOpenAbout} />
 
           {/* Screen 3: Pinned Animated Rotating Flower Section */}

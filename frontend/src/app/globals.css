@@ -2,7 +2,11 @@
 @import "./vase-flower.css";
 
 :root {
-  --bg-cream: #F4EFE6;
+  --bg-cream: #FDF0F4;
+  --bg-pink: #FDF0F4;
+  --bg-card-soft: #F6EAF0;
+  --bg-pill: #F1DEE5;
+  --bg-pill-hover: #E8CFD8;
   --bg-dark: #171615;
   --text-dark: #1E1D1B;
   --text-muted: #5E5B56;
@@ -456,7 +460,7 @@ body {
 
 .intro-pill-btn {
   align-self: flex-start;
-  background: #E5DFD4;
+  background: var(--bg-pill, #F1DEE5);
   border: 1px solid rgba(0, 0, 0, 0.08);
   color: #201f1e;
   text-decoration: none;
@@ -471,7 +475,7 @@ body {
 }
 
 .intro-pill-btn:hover {
-  background: #D8D1C5;
+  background: var(--bg-pill-hover, #E8CFD8);
   transform: translateY(-2px);
 }
 
@@ -681,7 +685,7 @@ body {
   justify-content: center;
   text-align: center;
   padding: 30px;
-  background: radial-gradient(circle at 50% 40%, #faf6ee 0%, #ece4d6 100%);
+  background: radial-gradient(circle at 50% 40%, #fff7f9 0%, #fae8ee 100%);
   border: 2px dashed rgba(23, 22, 21, 0.2);
   border-radius: 28px;
   margin: 12px;
@@ -1112,7 +1116,7 @@ body {
 }
 
 .about-back-btn {
-  background: #E5DFD4;
+  background: var(--bg-pill, #F1DEE5);
   border: 1px solid rgba(0, 0, 0, 0.08);
   color: #201f1e;
   padding: 8px 18px;
@@ -1127,7 +1131,7 @@ body {
 }
 
 .about-back-btn:hover {
-  background: #D8D1C5;
+  background: var(--bg-pill-hover, #E8CFD8);
   transform: translateX(-3px);
 }
 
@@ -1255,7 +1259,7 @@ body {
 }
 
 .about-stat-card {
-  background: #EAE4D8;
+  background: var(--bg-card-soft, #F6EAF0);
   padding: 20px;
   border-radius: 18px;
   display: flex;
@@ -1309,7 +1313,7 @@ body {
 }
 
 .about-value-card {
-  background: #EAE4D8;
+  background: var(--bg-card-soft, #F6EAF0);
   padding: 32px 28px;
   border-radius: 22px;
   display: flex;
@@ -1558,7 +1562,7 @@ body {
 }
 
 .theme-pill {
-  background: #E5DFD4;
+  background: var(--bg-pill, #F1DEE5);
   border: 1px solid rgba(0, 0, 0, 0.08);
   padding: 6px 14px;
   border-radius: 9999px;
@@ -1573,7 +1577,7 @@ body {
 }
 
 .theme-pill:hover {
-  background: #DDD5C7;
+  background: var(--bg-pill-hover, #E8CFD8);
   transform: translateY(-1px);
 }
 
@@ -1912,7 +1916,7 @@ body {
 
 /* High-End Contact Form (Full Width) */
 .contact-form-card {
-  background: #EAE4D8;
+  background: var(--bg-card-soft, #F6EAF0);
   border-radius: 28px;
   padding: 48px 52px;
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -2149,7 +2153,7 @@ body {
 
 .success-reset-btn {
   margin-top: 8px;
-  background: #E5DFD4;
+  background: var(--bg-pill, #F1DEE5);
   border: none;
   padding: 10px 22px;
   border-radius: 9999px;
@@ -2161,7 +2165,7 @@ body {
 }
 
 .success-reset-btn:hover {
-  background: #D8D1C5;
+  background: var(--bg-pill-hover, #E8CFD8);
   transform: translateY(-1px);
 }
 
