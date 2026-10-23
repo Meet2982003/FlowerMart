@@ -1,0 +1,550 @@
+/* ==========================================================================
+   Vase Flower Animation (Scoped - User Provided Glass Vase & Falling Petals)
+   ========================================================================== */
+
+.vase-section {
+  position: relative;
+  background-color: var(--bg-cream);
+  padding: 80px 40px 120px;
+  z-index: 20;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Decorative top connecting line */
+.vase-section-line-top {
+  width: 2.5px;
+  height: 60px;
+  background-color: #171615;
+  margin: 0 auto 48px 14%;
+  opacity: 0.7;
+}
+
+.vase-section-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 56px;
+  align-items: center;
+}
+
+/* Left: Editorial Narrative */
+.vase-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.vase-badge {
+  align-self: flex-start;
+  background: #171615;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+}
+
+.vase-sparkle {
+  color: var(--accent-orange);
+}
+
+.vase-main-heading {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.2vw, 56px);
+  line-height: 1.06;
+  color: var(--text-dark);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.vase-description {
+  font-size: 1.05rem;
+  line-height: 1.68;
+  color: #555048;
+  margin: 0;
+}
+
+.vase-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.vase-feature-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(23, 22, 21, 0.05);
+  border: 1px solid rgba(23, 22, 21, 0.08);
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #201f1e;
+  width: fit-content;
+}
+
+.vase-feature-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-orange);
+}
+
+.vase-action-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.vase-rebloom-btn {
+  background: #171615;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.vase-rebloom-btn:hover {
+  background: var(--accent-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(240, 90, 34, 0.35);
+}
+
+/* Right: The Night Terrarium Stage */
+.vase-stage-card {
+  position: relative;
+  background: linear-gradient(165deg, #050819 0%, #010317 60%, #000005 100%);
+  border-radius: 32px;
+  height: clamp(520px, 62vh, 620px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 30px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  contain: paint;
+  transform: translateZ(0);
+}
+
+/* Soft ambient glow behind flowers */
+.vase-ambient-glow {
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(26, 144, 146, 0.22) 0%, rgba(255, 67, 182, 0.12) 40%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+.vase-stage-tag {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  z-index: 10;
+}
+
+/* ==========================================================================
+   User CSS: Scoped to .vase-stage
+   ========================================================================== */
+
+.vase-stage {
+  --color-glass: linear-gradient(to left, #142544, #1a9092);
+  --color-water: linear-gradient(to left, #142544, #1b6d6e);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 35px;
+  z-index: 5;
+}
+
+.vase-stage .flower {
+  position: relative;
+  transform: scale(0.8);
+  transform-origin: center bottom;
+  margin-bottom: 6px;
+  bottom: 0 !important;
+  animation: none !important;
+}
+
+.vase-stage .flower__glass {
+  width: 130px;
+  height: 190px;
+  background-image: var(--color-glass);
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
+  opacity: 0.85;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 10px 30px rgba(20, 37, 68, 0.4);
+}
+
+.vase-stage .flower__glass::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #182843;
+  width: 100%;
+  height: 12px;
+}
+
+.vase-stage .flower__glass::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-image: var(--color-water);
+  width: 100%;
+  height: 95px;
+}
+
+.vase-stage .f-wrapper {
+  position: absolute;
+  left: 45%;
+  bottom: 12px;
+  z-index: 4;
+  animation: none !important;
+}
+
+.vase-stage .f-wrapper--2 {
+  left: 50%;
+  bottom: 5%;
+  transform-origin: 10% left;
+  transform: rotate(20deg);
+  z-index: 5;
+  animation: none !important;
+}
+
+.vase-stage .f-wrapper--3 {
+  left: 30%;
+  bottom: 5%;
+  transform-origin: 10% left;
+  transform: rotate(-10deg);
+  z-index: 3;
+  animation: none !important;
+}
+
+.vase-stage .f-wrapper--3 .flower__line {
+  height: 290px;
+  position: relative;
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+.vase-stage .f-wrapper--3 .flower__line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 38px;
+  height: 38px;
+  transform: translate(-69%, -30%) rotate(-5deg);
+  border-radius: 60px 60px 0 0;
+  border: 12px solid #104d4e;
+  border-bottom: transparent;
+  border-left: transparent;
+}
+
+.vase-stage .f-wrapper--3 .flower__line::before {
+  content: "";
+  position: absolute;
+  left: -40%;
+  top: -1%;
+  width: 38px;
+  height: 12px;
+  transform-origin: right;
+  transform: translate(-100%, -80%) rotate(-20deg);
+  background-color: #104d4e;
+  border-radius: 12px;
+}
+
+.vase-stage .f-wrapper--3 .flower__line {
+  background-image: linear-gradient(to top, #142544, #104d4e);
+}
+
+.vase-stage .f-wrapper--2 .flower__line {
+  height: 290px;
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+.vase-stage .f-wrapper--2 .f {
+  transform: translateX(-50%) rotate(20deg);
+}
+
+.vase-stage .f-wrapper--3 .f {
+  transform: translate(-350%, -50%) rotate(-120deg);
+}
+
+.vase-stage .f-wrapper--2 .flower__leaf:not(:first-child) {
+  width: 24px;
+  height: 64px;
+  background-image: linear-gradient(to bottom, #ff43b6, #c22887, #1a233a 99%);
+}
+
+.vase-stage .f-wrapper--3 .flower__leaf:not(:first-child) {
+  width: 24px;
+  height: 64px;
+  background-image: linear-gradient(to bottom, #ad2be0, #712291, #1a233a 99%);
+}
+
+.vase-stage .f-wrapper--3 .flower__leaf--1 {
+  width: 52px;
+  height: 64px;
+  bottom: 12px;
+  background-color: #ad2be0;
+}
+
+.vase-stage .f-wrapper--2 .flower__leaf--1 {
+  width: 52px;
+  height: 64px;
+  bottom: 12px;
+  background-color: #de118b;
+}
+
+.vase-stage .f-wrapper--2 .f .flower__leaf--8 {
+  width: 64px;
+  height: 58px;
+  bottom: 18px;
+  left: -30%;
+  transform: rotate(-50deg);
+  background-image: linear-gradient(to left bottom, #ff43b6, #4d1337);
+}
+
+.vase-stage .f-wrapper--3 .f .flower__leaf--8 {
+  width: 64px;
+  height: 58px;
+  left: -10% !important;
+  background-image: linear-gradient(to left bottom, #ad2be0, #712291);
+}
+
+.vase-stage .flower__line {
+  width: 13px;
+  height: 360px;
+  background-image: linear-gradient(to left top, #82fdff 20%, #142544, #104d4e);
+  border-radius: 26px;
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+.vase-stage .f {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-10deg);
+  width: 13px;
+  height: 13px;
+  animation: none !important;
+}
+
+.vase-stage .flower__leaf {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 90px;
+  background-image: linear-gradient(to bottom, #ffa085, #fa7373, #1a233a 99%);
+  clip-path: ellipse(50% 50% at 50% 50%);
+  transform-origin: center bottom;
+  animation: vase-open-flower 2s 1s backwards;
+}
+
+.vase-stage .flower__leaf--1 {
+  width: 64px;
+  height: 76px;
+  bottom: 18px;
+  border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+  background-color: #e24f5f;
+  background-image: none;
+  animation: vase-open-flower--middle 1.4s 1s backwards;
+}
+
+.vase-stage .flower__leaf--2 {
+  transform: translateX(-50%) rotate(-30deg);
+}
+
+.vase-stage .flower__leaf--3 {
+  transform: translateX(-50%) rotate(-50deg);
+}
+
+.vase-stage .flower__leaf--4 {
+  transform: translateX(-50%) rotate(-70deg);
+}
+
+.vase-stage .flower__leaf--5 {
+  transform: translateX(-50%) rotate(30deg);
+}
+
+.vase-stage .flower__leaf--6 {
+  transform: translateX(-50%) rotate(50deg);
+}
+
+.vase-stage .flower__leaf--7 {
+  transform: translateX(-50%) rotate(70deg);
+}
+
+.vase-stage .flower__leaf--8 {
+  width: 82px;
+  height: 70px;
+  bottom: 38px;
+  left: -30%;
+  clip-path: none;
+  border-radius: 64px 13px 64px 13px;
+  transform: rotate(-55deg);
+  background-image: linear-gradient(
+    to left bottom,
+    #ffa085,
+    #eb8b8b,
+    #492f2f 98%
+  );
+}
+
+.vase-stage .flower__fall-down--yellow {
+  animation: vase-flower-fall-down-yellow 8s 1.2s linear forwards;
+}
+
+.vase-stage .flower__fall-down--pink {
+  animation: vase-flower-fall-down-pink 5s 1.2s linear forwards;
+}
+
+.vase-stage .flower__fall-down--purple {
+  bottom: 24px;
+  animation: vase-flower-fall-down-purple 6s 1.2s linear forwards,
+    vase-flower-falling 6s 7.2s linear infinite;
+}
+
+/* Keyframes */
+@keyframes vase-open-flower {
+  0% {
+    transform: translateX(-50%) rotate(0);
+  }
+}
+
+@keyframes vase-open-flower--middle {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+  }
+}
+
+@keyframes vase-flower-fall-down-pink {
+  0% {
+    transform: rotate(-55deg);
+  }
+  50% {
+    transform: rotateX(-100deg);
+  }
+  100% {
+    transform: translate(12px, 175px);
+  }
+}
+
+@keyframes vase-flower-fall-down-yellow {
+  0% {
+    transform: rotate(-55deg);
+  }
+  50% {
+    bottom: 18px;
+    transform: rotateX(-100deg);
+  }
+  100% {
+    transform: translate(12px, 340px) rotate(150deg);
+  }
+}
+
+@keyframes vase-flower-fall-down-purple {
+  0% {
+    transform: rotate(-50deg);
+  }
+  25% {
+    bottom: 6px;
+    transform: rotateX(-100deg);
+    perspective: 0px;
+  }
+  50% {
+    perspective: 0px;
+    transform: translate(-190px, 12px) rotate(90deg);
+  }
+  75% {
+    perspective: 0px;
+    transform: translate(-215px, -12px);
+  }
+  100% {
+    transform-origin: center;
+    transform: translate(-215px, -12px) rotateY(-80deg) rotateX(35deg);
+  }
+}
+
+@keyframes vase-flower-falling {
+  0%,
+  100% {
+    transform-origin: center;
+    transform: translate(-215px, -12px) rotateY(-80deg) rotateX(35deg);
+  }
+  25% {
+    transform-origin: center;
+    transform: translate(-218px, -12px) rotateY(-84deg) rotateX(35deg);
+  }
+  50% {
+    transform-origin: center;
+    transform: translate(-202px, -26px) rotateY(-80deg) rotateX(35deg);
+  }
+  75% {
+    transform-origin: center;
+    transform: translate(-228px, 7px) rotateY(-80deg) rotateX(35deg);
+  }
+}
+
+
+/* Responsive Adaptations */
+@media (max-width: 960px) {
+  .vase-section-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .vase-section-line-top {
+    margin: 0 auto 32px;
+  }
+
+  .vase-stage-card {
+    height: 520px;
+  }
+
+  .vase-stage .flower {
+    transform: scale(0.74);
+  }
+}
