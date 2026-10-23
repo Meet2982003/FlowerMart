@@ -385,7 +385,7 @@ export default function ContactSection() {
             <div className="contact-info-left-pane">
               <BlossomingFlowers isVisible={isGardenInView} />
               <a
-                href="https://wa.me/919825012345?text=Hello%20JNR%20Flowers,%20I%20would%20like%20to%20inquire%20about%20floral%20decorations."
+                href="https://wa.me/918401239344?text=Hello%20JNR%20Flowers,%20I%20would%20like%20to%20inquire%20about%20floral%20decorations."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-whatsapp-btn"
@@ -408,7 +408,7 @@ export default function ContactSection() {
                     <a href="tel:+918401239344" className="detail-value-link">
                       +91 8401239344
                     </a>
-                    <span className="detail-sub">Ahmedabad & Global Inquiries</span>
+                    <span className="detail-sub">Ahmedabad & Gandhinagar</span>
                   </div>
                 </div>
 

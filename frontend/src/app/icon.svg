@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <!-- Darker vibrant petal -->
+    <path id="petalDark" d="M 50 50 C 42 32 37 12 50 4 C 63 12 58 32 50 50 Z" fill="#EA5C23"/>
+    <!-- Lighter peach petal -->
+    <path id="petalLight" d="M 50 50 C 42 32 37 12 50 4 C 63 12 58 32 50 50 Z" fill="#F3824F"/>
+  </defs>
+  <g transform="translate(0, 2)">
+    <!-- Top Petal (0 deg): Dark -->
+    <use href="#petalDark" transform="rotate(0 50 50)"/>
+    <!-- Top Right Petal (72 deg): Light -->
+    <use href="#petalLight" transform="rotate(72 50 50)"/>
+    <!-- Bottom Right Petal (144 deg): Dark -->
+    <use href="#petalDark" transform="rotate(144 50 50)"/>
+    <!-- Bottom Left Petal (216 deg): Light -->
+    <use href="#petalLight" transform="rotate(216 50 50)"/>
+    <!-- Top Left Petal (288 deg): Dark -->
+    <use href="#petalDark" transform="rotate(288 50 50)"/>
+    <!-- Center disc: Deep Navy/Charcoal -->
+    <circle cx="50" cy="50" r="9.5" fill="#19152A"/>
+  </g>
+</svg>

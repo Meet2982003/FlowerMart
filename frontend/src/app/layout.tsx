@@ -19,6 +19,14 @@ export const metadata: Metadata = {
   title: "JNR",
   description:
     "From our location at the flower auction, we ensure every flower and plant reaches our customers in top condition.",
+  icons: {
+    icon: [
+      { url: "/assets/jnr_flower_icon.png?v=3", type: "image/png" },
+      { url: "/icon.svg?v=3", type: "image/svg+xml" },
+    ],
+    shortcut: "/assets/jnr_flower_icon.png?v=3",
+    apple: "/assets/jnr_flower_icon.png?v=3",
+  },
 };
 
 export default function RootLayout({
@@ -31,6 +39,16 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakartaSans.variable} ${bebasNeue.variable}`}
     >
+      <head>
+        <link
+          rel="icon"
+          href="/assets/jnr_flower_icon.png?v=3"
+          type="image/png"
+          sizes="any"
+        />
+        <link rel="shortcut icon" href="/assets/jnr_flower_icon.png?v=3" />
+        <link rel="apple-touch-icon" href="/assets/jnr_flower_icon.png?v=3" />
+      </head>
       <body>{children}</body>
     </html>
   );

@@ -24,6 +24,11 @@
   box-sizing: border-box;
 }
 
+/* Hide Next.js dev indicator badge */
+nextjs-portal {
+  display: none !important;
+}
+
 html {
   background-color: var(--bg-cream);
   color: var(--text-dark);
