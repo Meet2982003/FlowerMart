@@ -14,7 +14,7 @@
   --accent-orange-hover: #D94814;
   --accent-purple: #8572F5;
   --card-pink: #F2BED5;
-  --font-display: var(--font-bebas-neue), sans-serif;
+  --font-display: var(--font-cormorant), var(--font-display-hi), Georgia, serif;
   --font-body: var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
 }
 
@@ -58,7 +58,7 @@ body {
 }
 
 /* ==========================================================================
-   Top Header Navigation Bar (Matches Screenshot 1)
+   Top Header Navigation Bar
    ========================================================================== */
 .top-header {
   position: fixed;
@@ -213,7 +213,7 @@ body {
 }
 
 /* ==========================================================================
-   Screen 1: Hero Section (Matches Screenshot 1)
+   Screen 1: Hero Section
    ========================================================================== */
 .hero-landing-section {
   position: relative;
@@ -272,7 +272,7 @@ body {
   max-width: 960px;
 }
 
-/* Theme Badge */
+/* Theme Badge (small tag: keeps uppercase) */
 .hero-wedding-badge {
   background: rgba(18, 16, 22, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -298,12 +298,11 @@ body {
 /* Luxury Wedding Title */
 .hero-wedding-title {
   font-family: var(--font-display);
-  font-size: clamp(38px, 5.2vw, 68px);
+  font-size: clamp(44px, 6vw, 84px);
   line-height: 1.05;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: #ffffff;
-  text-transform: uppercase;
   text-shadow: 0 6px 24px rgba(0, 0, 0, 0.85);
   margin-bottom: 18px;
   max-width: 880px;
@@ -387,7 +386,7 @@ body {
 }
 
 /* ==========================================================================
-   Screen 2: Intro Section (Matches Screenshot 2)
+   Screen 2: Intro Section
    ========================================================================== */
 .intro-section {
   position: relative;
@@ -454,13 +453,20 @@ body {
   padding-top: 10px;
 }
 
+/* About paragraph: serif, left-aligned (no more uneven word gaps) */
 .intro-lead {
-  font-size: clamp(26px, 3.2vw, 42px);
-  line-height: 1.34;
-  text-align: justify;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.4vw, 46px);
+  line-height: 1.3;
   font-weight: 500;
   color: #201f1e;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
+
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  text-wrap: pretty;
 }
 
 .intro-pill-btn {
@@ -490,7 +496,7 @@ body {
 }
 
 /* ==========================================================================
-   Screen 3: Animated Flower Section (Matches Screenshot 3)
+   Screen 3: Animated Flower Section
    ========================================================================== */
 .flower-animation-section {
   position: relative;
@@ -560,10 +566,9 @@ body {
 
 .word-reveal {
   font-family: var(--font-display);
-  font-size: clamp(38px, 5.2vw, 80px);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-size: clamp(44px, 6vw, 92px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--accent-purple);
   opacity: 0;
   transform: translateY(20px);
@@ -637,8 +642,8 @@ body {
   }
 
   .word-reveal {
-    font-size: clamp(24px, 7vw, 40px);
-    letter-spacing: 0.02em;
+    font-size: clamp(28px, 8vw, 46px);
+    letter-spacing: -0.01em;
   }
 
   .flower-switcher-pill {
@@ -653,7 +658,7 @@ body {
 }
 
 /* ==========================================================================
-   Screen 4: Expanding Card Showcase Carousel (User Provided Code Type)
+   Screen 4: Expanding Card Showcase Carousel
    ========================================================================== */
 .carousel-section {
   position: relative;
@@ -665,9 +670,6 @@ body {
   scroll-margin-top: 100px;
 }
 
-
-
-/* Container matching user's layout */
 .carousel-section .container {
   position: relative;
   width: 100%;
@@ -712,8 +714,8 @@ body {
 
 .carousel-empty-prompt h3 {
   font-family: var(--font-display);
-  font-size: clamp(26px, 3.2vw, 36px);
-  text-transform: uppercase;
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 600;
   color: var(--text-dark);
   margin: 0 0 10px 0;
 }
@@ -857,11 +859,10 @@ body {
 
 .carousel-section .content .name {
   font-family: var(--font-display);
-  font-size: clamp(36px, 4.5vw, 62px);
-  text-transform: uppercase;
-  font-weight: 800;
+  font-size: clamp(40px, 5vw, 68px);
+  font-weight: 600;
   line-height: 1.05;
-  letter-spacing: 0.03em;
+  letter-spacing: -0.01em;
   color: #ffffff;
   opacity: 0;
   animation: animateCarouselContent 0.5s ease-in-out 0.08s 1 forwards;
@@ -917,7 +918,7 @@ body {
   }
 }
 
-/* Nav Buttons matching user's layout */
+/* Nav Buttons */
 .carousel-section .button {
   display: flex;
   flex-direction: row;
@@ -1028,7 +1029,7 @@ body {
   }
 
   .carousel-section .content .name {
-    font-size: clamp(26px, 6.5vw, 36px);
+    font-size: clamp(30px, 7.5vw, 40px);
   }
 
   .carousel-section .content .des {
@@ -1060,7 +1061,6 @@ body {
     border-radius: 10px;
   }
 }
-
 
 /* ==========================================================================
    Responsive Adaptations
@@ -1177,11 +1177,10 @@ body {
 .about-main-title {
   font-family: var(--font-display);
   font-size: clamp(48px, 6.5vw, 88px);
-  line-height: 0.95;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: #1a1918;
-  text-transform: uppercase;
 }
 
 .about-lead-text {
@@ -1238,15 +1237,17 @@ body {
 .story-subhead {
   font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--accent-orange);
   text-transform: uppercase;
 }
 
 .story-heading {
-  font-size: clamp(28px, 3.2vw, 42px);
-  font-weight: 700;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   color: #1a1918;
 }
 
@@ -1274,7 +1275,9 @@ body {
 
 .stat-number {
   font-family: var(--font-display);
-  font-size: 2.4rem;
+  font-size: 2.6rem;
+  font-weight: 600;
+  font-variant-numeric: lining-nums;
   line-height: 1;
   color: var(--accent-orange);
 }
@@ -1300,14 +1303,16 @@ body {
 .values-tag {
   font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--accent-orange);
   text-transform: uppercase;
 }
 
 .values-main-heading {
-  font-size: clamp(28px, 3.5vw, 44px);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.8vw, 50px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: #1a1918;
 }
 
@@ -1344,8 +1349,10 @@ body {
 }
 
 .value-title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
   color: #1a1918;
 }
 
@@ -1370,8 +1377,9 @@ body {
 
 .about-bottom-cta h2 {
   font-family: var(--font-display);
-  font-size: clamp(34px, 4.5vw, 54px);
-  letter-spacing: 0.02em;
+  font-size: clamp(36px, 4.8vw, 58px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .about-bottom-cta p {
@@ -1526,12 +1534,11 @@ body {
 
 .contact-main-heading {
   font-family: var(--font-display);
-  font-size: clamp(42px, 5.8vw, 80px);
-  line-height: 0.95;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-size: clamp(44px, 6vw, 84px);
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: #1a1918;
-  text-transform: uppercase;
 }
 
 .contact-subheading {
@@ -1608,7 +1615,7 @@ body {
   width: 100%;
 }
 
-/* Contact Details Card (Placed Below Form, Proper Full Width) */
+/* Contact Details Card */
 .contact-info-card {
   position: relative;
   background-color: var(--bg-dark);
@@ -1669,7 +1676,7 @@ body {
   filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.16));
 }
 
-/* Showcase View Mode Bar (Night Garden Bloom vs 360 Rotating Flower) */
+/* Showcase View Mode Bar */
 .showcase-mode-bar {
   display: flex;
   background: rgba(255, 255, 255, 0.05);
@@ -1807,7 +1814,7 @@ body {
   }
 }
 
-/* Details Stack: 2x2 Grid for spacious presentation */
+/* Details Stack: 2x2 Grid */
 .contact-details-stack {
   position: relative;
   z-index: 2;
@@ -1942,16 +1949,17 @@ body {
 .form-tag {
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--theme-accent);
   text-transform: uppercase;
 }
 
 .form-heading {
-  font-size: clamp(24px, 2.6vw, 36px);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 600;
   color: #1a1918;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
 }
 
 .form-desc {
@@ -2144,8 +2152,9 @@ body {
 }
 
 .success-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 600;
   color: #1a1918;
 }
 
@@ -2304,5 +2313,3 @@ body {
     font-size: 0.9rem;
   }
 }
-
-
