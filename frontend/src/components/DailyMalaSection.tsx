@@ -270,6 +270,29 @@ export default function DailyMalaSection({ onBack }: DailyMalaSectionProps) {
     }
   };
 
+  // Viewport tracking: pause iframe animation when user scrolls to catalog cards
+  useEffect(() => {
+    const el = animSectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        try {
+          if (iframeRef.current?.contentWindow) {
+            iframeRef.current.contentWindow.postMessage(
+              entry.isIntersecting ? "resume" : "pause",
+              "*"
+            );
+          }
+        } catch {}
+      },
+      { threshold: 0.05, rootMargin: "100px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value, 10);
     setMaxPriceFilter(val);

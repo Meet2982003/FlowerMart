@@ -84,12 +84,19 @@ export default function ContactSection() {
     if (path && flowerGroup && dot) {
       const totalLength = path.getTotalLength();
 
+      // Pre-sample 100 points along the path once on mount for instant O(1) lookups
+      const SAMPLES = 100;
+      const sampledPoints: DOMPoint[] = [];
+      for (let i = 0; i <= SAMPLES; i++) {
+        sampledPoints.push(path.getPointAtLength((i / SAMPLES) * totalLength));
+      }
+
       // Set stroke dasharray & dashoffset to animate line drawing
       path.style.strokeDasharray = `${totalLength}`;
       path.style.strokeDashoffset = `${totalLength}`;
 
       // Place flower at initial position (progress = 0)
-      const initialPt = path.getPointAtLength(0);
+      const initialPt = sampledPoints[0];
       flowerGroup.setAttribute(
         "transform",
         `translate(${initialPt.x}, ${initialPt.y}) rotate(0)`
@@ -112,7 +119,8 @@ export default function ContactSection() {
           onUpdate: (self) => {
             const p = self.progress;
             const currentDist = p * totalLength;
-            const pt = path.getPointAtLength(currentDist);
+            const idx = Math.min(SAMPLES, Math.max(0, Math.round(p * SAMPLES)));
+            const pt = sampledPoints[idx];
 
             // 1. Draw line following the motion
             path.style.strokeDashoffset = `${totalLength - currentDist}`;
@@ -201,10 +209,10 @@ export default function ContactSection() {
               <g
                 ref={flowerGroupRef}
                 style={{
-                  filter: "drop-shadow(0px 14px 22px rgba(225, 90, 140, 0.35))",
                   transformOrigin: "0px 0px",
                 }}
               >
+                <ellipse cx="0" cy="8" rx="44" ry="44" fill="rgba(225, 90, 140, 0.28)" />
                 <image
                   href="/assets/pink_peony.png"
                   width="120"

@@ -23,8 +23,10 @@ export default function HomePage() {
   };
 
   const handleOpenHome = () => {
-    setCurrentView("home");
-    resetScrollToTop();
+    if (currentView !== "home") {
+      setCurrentView("home");
+      resetScrollToTop();
+    }
   };
 
   const handleOpenAdmin = () => {

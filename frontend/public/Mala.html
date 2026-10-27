@@ -69,7 +69,6 @@
   .diya-flame {
     animation: diyaFlicker 1.8s ease-in-out infinite alternate;
     transform-origin: 0 0;
-    filter: drop-shadow(0 0 12px #ffa200);
     will-change: transform;
   }
   @keyframes diyaFlicker {
@@ -85,6 +84,14 @@
   @keyframes auraPulse {
     0% { opacity: 0.65; transform: scale(0.96); }
     100% { opacity: 0.95; transform: scale(1.04); }
+  }
+
+  body.is-paused .diya-flame,
+  body.is-paused .diya-glow,
+  body.is-paused .run .pop,
+  body.is-paused .run .thread,
+  body.is-paused .run .needle {
+    animation-play-state: paused !important;
   }
 </style>
 </head>
@@ -220,6 +227,10 @@
   window.addEventListener('message', function(e) {
     if (e.data === 'replay' || (e.data && e.data.type === 'replay')) {
       play();
+    } else if (e.data === 'pause' || (e.data && e.data.type === 'pause')) {
+      document.body.classList.add('is-paused');
+    } else if (e.data === 'resume' || (e.data && e.data.type === 'resume')) {
+      document.body.classList.remove('is-paused');
     }
   });
 

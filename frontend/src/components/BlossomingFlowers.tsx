@@ -14,41 +14,42 @@ export default function BlossomingFlowers({
 }: BlossomingFlowersProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [localBloomed, setLocalBloomed] = useState(false);
+  const [isInViewport, setIsInViewport] = useState(false);
   const [rebloomCount, setRebloomCount] = useState(0);
 
-  // If isVisible is not explicitly controlled, use IntersectionObserver callback
+  // Viewport tracking: Mount on first intersection, pause animations when scrolled out
   useEffect(() => {
-    if (isVisible) return;
+    const el = containerRef.current;
+    if (!el) return;
+
     const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
+      ([entry]) => {
+        setIsInViewport(entry.isIntersecting);
         if (entry.isIntersecting) {
           setLocalBloomed(true);
-          observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: "150px 0px" }
     );
 
-    const el = containerRef.current;
-    if (el) {
-      observer.observe(el);
-    }
-
-    return () => {
-      if (el) observer.unobserve(el);
-      observer.disconnect();
-    };
-  }, [isVisible]);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const hasBloomed = isVisible || localBloomed;
+  const isCurrentlyActive = isVisible || isInViewport;
 
   const handleRebloom = () => {
     setRebloomCount((prev) => prev + 1);
   };
 
   return (
-    <div ref={containerRef} className={`blossom-garden-card ${className}`}>
+    <div
+      ref={containerRef}
+      className={`blossom-garden-card ${className} ${
+        !isCurrentlyActive ? "is-paused" : "is-active"
+      }`}
+    >
       {/* Top Header */}
       <div className="blossom-card-header">
         <div className="blossom-badge">

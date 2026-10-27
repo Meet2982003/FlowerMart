@@ -37,10 +37,28 @@ export default function PhotoCarousel() {
   const [slides, setSlides] = useState<CarouselSlideItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const slideRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isInViewport, setIsInViewport] = useState(false);
 
   // Gallery Modal State
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [activeGalleryItem, setActiveGalleryItem] = useState<CarouselSlideItem | null>(null);
+
+  // Track viewport intersection: Only run auto-play when visible
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInViewport(entry.isIntersecting);
+      },
+      { rootMargin: "100px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Dynamic image fetching from public/assets/carousel/ via /api/carousel-images
   const fetchCarouselImages = useCallback(async () => {
@@ -139,22 +157,22 @@ export default function PhotoCarousel() {
     }
   }, []);
 
-  // Automatic rotation timer - pauses when modal is open
+  // Automatic rotation timer - pauses when modal is open or section is off-screen
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const resetTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
-    if (isGalleryOpen) return; // Pause timer when modal is open
+    if (isGalleryOpen || !isInViewport) return; // Pause timer when off-screen or modal open
 
     timerRef.current = setInterval(() => {
       handleNext();
     }, AUTO_PLAY_INTERVAL);
-  }, [handleNext, isGalleryOpen]);
+  }, [handleNext, isGalleryOpen, isInViewport]);
 
   useEffect(() => {
     if (slides.length <= 1) return;
 
-    if (isGalleryOpen) {
+    if (isGalleryOpen || !isInViewport) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
@@ -164,7 +182,7 @@ export default function PhotoCarousel() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [resetTimer, slides.length, isGalleryOpen]);
+  }, [resetTimer, slides.length, isGalleryOpen, isInViewport]);
 
   const onManualNext = () => {
     handleNext();
@@ -185,6 +203,7 @@ export default function PhotoCarousel() {
   return (
     <>
       <section
+        ref={sectionRef}
         className="carousel-section"
         id="gallery"
         aria-label="Expanding Card Photo Carousel"

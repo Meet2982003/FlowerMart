@@ -1,22 +1,34 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Sparkles } from "lucide-react";
 
 export default function VaseFlowerSection() {
-  const [replayKey, setReplayKey] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Automatically repeat the bloom and falling petal animation every 10 seconds
+  // Viewport tracking: pause animations completely when out of view
   useEffect(() => {
-    const timer = setInterval(() => {
-      setReplayKey((prev) => prev + 1);
-    }, 10000);
+    const el = sectionRef.current;
+    if (!el) return;
 
-    return () => clearInterval(timer);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { rootMargin: "150px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="vase-section" id="botanical-art">
+    <section
+      ref={sectionRef}
+      className={`vase-section ${isVisible ? "is-visible" : "is-paused"}`}
+      id="botanical-art"
+    >
       {/* Decorative vertical top connector line */}
       <div className="vase-section-line-top" aria-hidden="true" />
 
@@ -60,7 +72,7 @@ export default function VaseFlowerSection() {
           <div className="vase-ambient-glow" aria-hidden="true" />
 
           <div className="vase-stage">
-            <div key={replayKey} className="flower">
+            <div className="flower">
               {/* Stem 1: Center Yellow/Coral Flower */}
               <div className="f-wrapper">
                 <div className="flower__line"></div>

@@ -12,6 +12,12 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  content-visibility: auto;
+  contain-intrinsic-size: 550px;
+}
+
+.blossom-garden-card.is-paused * {
+  animation-play-state: paused !important;
 }
 
 .blossom-card-header {
@@ -220,10 +226,10 @@
   left: 0;
   top: 0;
   transform: translate(-50%, -100%);
-  width: calc(8 * var(--u, 3px));
-  height: calc(8 * var(--u, 3px));
-  background-color: #F05A22;
-  filter: blur(calc(10 * var(--u, 3px)));
+  width: calc(14 * var(--u, 3px));
+  height: calc(14 * var(--u, 3px));
+  background: radial-gradient(circle, rgba(240, 90, 34, 0.9) 0%, rgba(240, 90, 34, 0) 70%);
+  pointer-events: none;
 }
 .flower__leaf {
   position: absolute;

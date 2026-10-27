@@ -86,8 +86,14 @@ export default function Header({
         aria-label="Home"
         onClick={(e) => {
           e.preventDefault();
-          onHomeClick?.();
-          scrollToSection(0);
+          if (currentView !== "home") {
+            onHomeClick?.();
+            setTimeout(() => {
+              scrollToSection(0, { duration: 1.2 });
+            }, 80);
+          } else {
+            scrollToSection(0, { duration: 1.2 });
+          }
         }}
       >
         <img
