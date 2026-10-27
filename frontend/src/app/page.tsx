@@ -10,24 +10,31 @@ import VaseFlowerSection from "@/components/VaseFlowerSection";
 import ContactSection from "@/components/ContactSection";
 import AboutUs from "@/components/AboutUs";
 import AdminPortalView from "@/components/AdminPortalView";
-import SmoothScroll from "@/components/SmoothScroll";
+import DailyMalaSection from "@/components/DailyMalaSection";
+import SmoothScroll, { resetScrollToTop } from "@/components/SmoothScroll";
+import { useEffect } from "react";
 
 export default function HomePage() {
-  const [currentView, setCurrentView] = useState<"home" | "about" | "admin">("home");
+  const [currentView, setCurrentView] = useState<"home" | "about" | "admin" | "mala">("home");
 
   const handleOpenAbout = () => {
     setCurrentView("about");
-    window.scrollTo({ top: 0, behavior: "instant" });
+    resetScrollToTop();
   };
 
   const handleOpenHome = () => {
     setCurrentView("home");
-    window.scrollTo({ top: 0, behavior: "instant" });
+    resetScrollToTop();
   };
 
   const handleOpenAdmin = () => {
     setCurrentView("admin");
-    window.scrollTo({ top: 0, behavior: "instant" });
+    resetScrollToTop();
+  };
+
+  const handleOpenMala = () => {
+    setCurrentView("mala");
+    resetScrollToTop();
   };
 
   return (
@@ -37,16 +44,19 @@ export default function HomePage() {
         onAboutClick={handleOpenAbout}
         onHomeClick={handleOpenHome}
         onAdminClick={handleOpenAdmin}
+        onMalaClick={handleOpenMala}
       />
 
       {currentView === "about" ? (
         <AboutUs onBack={handleOpenHome} />
       ) : currentView === "admin" ? (
         <AdminPortalView onBack={handleOpenHome} />
+      ) : currentView === "mala" ? (
+        <DailyMalaSection onBack={handleOpenHome} />
       ) : (
         <main className="landing-main-wrapper">
           {/* Screen 1: Hero Landing View */}
-          <HeroSection />
+          <HeroSection onMalaClick={handleOpenMala} />
 
           {/* Screen 2: Soft Petal Pink Logistics Intro with Hanging Bloom */}
           <IntroSection onAboutClick={handleOpenAbout} />

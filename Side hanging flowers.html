@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Side hanging flowers</title>
+<style>
+  html,body{margin:0}
+  body{background:#f9eef1; font-family:Georgia,serif}
+
+  /* demo layout only: stands in for your page section + dark card */
+  .mala-section{position:relative; overflow:hidden; padding:64px 16px 96px; min-height:100vh}
+
+  /* ===== COPY FROM HERE: CSS ===== */
+  /* your section needs: position:relative; overflow:hidden. Move the cluster with --x (distance from the left), or swap left for right. */
+  .mala-section{--x:8%}
+  .jhalar{position:absolute; top:0; left:var(--x); width:176px; height:100%; pointer-events:none}
+  .jhalar::before{content:""; position:absolute; top:0; left:0; right:0; height:4px; border-radius:0 0 4px 4px; background:linear-gradient(90deg,#b98a3e,#e8c77a,#b98a3e)}
+  .jhalar .s{position:absolute; top:2px; width:30px; overflow:visible; transform-origin:50% 0; filter:drop-shadow(0 4px 3px rgba(60,20,0,.28))}
+  .jhalar .f{opacity:0; transform:scale(.3)}
+  .jhalar .th{stroke-dasharray:1; stroke-dashoffset:1}
+  .jhalar.in .f{animation:jpop .9s cubic-bezier(.34,1.56,.64,1) both; animation-delay:calc(var(--d) + var(--i) * .16s)}
+  .jhalar.in .th{animation:jline var(--dur) linear both; animation-delay:var(--d)}
+  .jhalar.in .s{animation:jsettle 6s ease-out both, jbreeze var(--bd) ease-in-out infinite alternate; animation-delay:calc(var(--d) + var(--tot)), calc(var(--d) + var(--tot) + 6s)}
+  @keyframes jpop{from{opacity:0; transform:translateY(-12px) scale(.3) rotate(-30deg)} to{opacity:1; transform:none}}
+  @keyframes jline{to{stroke-dashoffset:0}}
+  @keyframes jsettle{0%{transform:rotate(0)} 12%{transform:rotate(3.2deg)} 30%{transform:rotate(-2.4deg)} 48%{transform:rotate(1.6deg)} 64%{transform:rotate(-1deg)} 80%{transform:rotate(.55deg)} 100%{transform:rotate(-.9deg)}}
+  @keyframes jbreeze{from{transform:rotate(-.9deg)} to{transform:rotate(.9deg)}}
+  @media (prefers-reduced-motion:reduce){.jhalar.in .s,.jhalar.in .f,.jhalar.in .th{animation:none} .jhalar .f{opacity:1; transform:none} .jhalar .th{stroke-dashoffset:0}}
+  /* ===== END CSS ===== */
+</style>
+</head>
+<body>
+  <!-- ===== COPY FROM HERE: HTML (put these inside your section, before the card) ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="jdefs"></defs></svg>
+  <!-- ===== END HTML ===== -->
+
+  <section class="mala-section" id="malaSection">
+    <div class="jhalar" aria-hidden="true"></div>
+  </section>
+
+<!-- ===== COPY FROM HERE: JS (put before </body>) ===== -->
+<script>
+(function(){
+  var sec=document.getElementById('malaSection'), strips=sec.querySelectorAll('.jhalar'), PITCH=22;
+  function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+  // one small marigold, reused for every flower on every string
+  function ring(n,off,cy,rx,ry){var s='';for(var j=0;j<n;j++)s+='<ellipse cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" stroke="#8a4a00" stroke-opacity=".35" stroke-width=".5" transform="rotate('+(j*360/n+off)+')"/>';return s;}
+  document.getElementById('jdefs').innerHTML=
+    '<linearGradient id="jfy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe680"/><stop offset="1" stop-color="#f0a800"/></linearGradient>'+
+    '<linearGradient id="jfo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb25a"/><stop offset="1" stop-color="#e8660f"/></linearGradient>'+
+    '<radialGradient id="jc"><stop offset="0" stop-color="#7a3500" stop-opacity=".55"/><stop offset="1" stop-color="#7a3500" stop-opacity="0"/></radialGradient>'+
+    '<g id="jf">'+ring(10,0,-7,4.8,7.5)+ring(7,18,-4.2,3.6,5.2)+'<circle r="5.5" fill="url(#jc)"/></g>';
+
+  function build(){
+    var H=sec.offsetHeight, r=rng(77);
+    strips.forEach(function(strip){
+      var w=strip.offsetWidth, html='';
+      if(w<50){strip.innerHTML='';return;}
+      for(var x=8,k=0;x+30<=w;x+=44,k++){
+        var len=Math.round(H*[.36,.52,.28,.44][k]/PITCH)*PITCH, c=0, g='<line class="th" pathLength="1" x1="15" y1="0" x2="15" y2="'+(len-4)+'" stroke="#8a5a1f" stroke-width="1.4"/>';
+        for(var y=14;y<len-18;y+=PITCH,c++)
+          g+='<g transform="translate(15 '+y+')"><g class="f" style="--i:'+c+'"><use href="#jf" transform="rotate('+Math.round(r()*36)+') scale('+(.9+r()*.15).toFixed(2)+')" fill="url(#'+(c%2?'jfo':'jfy')+')"/></g></g>';
+        g+='<g class="f" style="--i:'+c+';transform-origin:15px '+(len-8)+'px"><circle cx="15" cy="'+(len-8)+'" r="4" fill="#d9a441" stroke="#8a5a1f" stroke-width=".6"/><path d="M12 '+(len-4)+'v10M15 '+(len-4)+'v13M18 '+(len-4)+'v10" stroke="#d9a441" stroke-width="1.2" stroke-linecap="round"/></g>';
+        html+='<svg class="s" viewBox="0 0 30 '+(len+20)+'" height="'+(len+20)+'" style="left:'+(x+(r()-.5)*6).toFixed(0)+'px;--d:'+(k*.5).toFixed(2)+'s;--tot:'+(c*.16+1).toFixed(2)+'s;--dur:'+(c*.16+.4).toFixed(2)+'s;--bd:'+(7+k*1.3).toFixed(1)+'s">'+g+'</svg>';
+      }
+      strip.innerHTML=html;
+    });
+  }
+  build();
+  var t; window.addEventListener('resize',function(){clearTimeout(t); t=setTimeout(build,200);});
+
+  // strings grow down when the section scrolls into view
+  new IntersectionObserver(function(e,o){if(e[0].isIntersecting){strips.forEach(function(s){s.classList.add('in');}); o.disconnect();}},{threshold:.15}).observe(sec);
+})();
+</script>
+<!-- ===== END JS ===== -->
+</body>
+</html>

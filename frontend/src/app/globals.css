@@ -1,5 +1,6 @@
 @import "./blossoming-flowers.css";
 @import "./vase-flower.css";
+@import "./daily-mala.css";
 
 :root {
   --bg-cream: #FDF0F4;
@@ -66,36 +67,46 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
-  background: rgba(26, 25, 24, 0.72);
+  background: rgba(22, 21, 20, 0.82);
   color: #ffffff;
   padding: 10px 24px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   border-top: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30);
   display: flex;
   align-items: center;
   gap: 28px;
   white-space: nowrap;
   user-select: none;
   max-width: 95vw;
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  transition: transform 0.34s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.28s ease,
+              background 0.35s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.35s ease,
               box-shadow 0.35s ease,
               backdrop-filter 0.35s ease,
               padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .top-header.is-scrolled {
-  background: rgba(18, 17, 16, 0.45);
-  backdrop-filter: blur(22px) saturate(190%);
-  -webkit-backdrop-filter: blur(22px) saturate(190%);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  background: rgba(14, 13, 12, 0.92);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.14);
   padding: 8px 24px;
+}
+
+/* Aceternity Floating Navbar logic: Hide on scroll down, show on scroll up */
+.top-header.is-hidden {
+  transform: translate(-50%, -100%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .header-logo {
@@ -124,7 +135,7 @@ body {
 }
 
 .header-nav a {
-  color: #d1cfcb;
+  color: #e5e2de;
   text-decoration: none;
   font-size: 0.92rem;
   font-weight: 500;
@@ -138,7 +149,7 @@ body {
 .nav-text-btn {
   background: none;
   border: none;
-  color: #d1cfcb;
+  color: #e5e2de;
   text-decoration: none;
   font-size: 0.92rem;
   font-weight: 500;
@@ -205,13 +216,13 @@ body {
   gap: 5px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #9c9993;
+  color: #b5b2ac;
 }
 
 .lang-btn {
   background: none;
   border: none;
-  color: #8c8983;
+  color: #cbc8c2;
   font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
@@ -225,7 +236,7 @@ body {
 }
 
 .lang-divider {
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 .header-btn {

@@ -11,6 +11,27 @@ export function getLenis(): Lenis | null {
   return globalLenis;
 }
 
+export function resetScrollToTop() {
+  if (typeof window === "undefined") return;
+
+  const lenis = globalLenis || (window as any).lenis;
+  if (lenis && typeof lenis.scrollTo === "function") {
+    try {
+      lenis.scrollTo(0, { immediate: true });
+      setTimeout(() => {
+        try {
+          lenis.resize();
+          ScrollTrigger.refresh();
+        } catch {}
+      }, 50);
+      return;
+    } catch {}
+  }
+
+  window.scrollTo({ top: 0, behavior: "instant" });
+  ScrollTrigger.refresh();
+}
+
 export function scrollToSection(
   target: HTMLElement | string | number,
   options?: { offset?: number; duration?: number }
@@ -71,7 +92,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     // Highly optimized buttery-smooth Lenis configuration
     const lenis = new Lenis({
-      lerp: 0.09, // Instant, buttery-smooth linear interpolation without sluggish latency
+      lerp: 0.14, // Crisper, more immediate responsiveness while scrolling
       smoothWheel: true,
       wheelMultiplier: 1.0,
       touchMultiplier: 1.2,

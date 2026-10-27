@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mala</title>
+<style>
+  :root{
+    --T:5.5s; --s:calc(min(96vh,96vw)/740);
+    --bg:#ffffff; --thread:#8a5a1f; --btn:#e8701a; --btn-ink:#fff;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){--bg:#1a0f0a; --thread:#d9b27a;}
+  }
+  :root[data-theme="dark"]{--bg:#171615; --thread:#d9b27a; --btn:#F05A22;}
+  :root[data-theme="transparent"]{--bg:transparent; --thread:#d9b27a; --btn:#F05A22;}
+  *{box-sizing:inherit}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    perspective:calc(var(--s)*1500);
+    pointer-events:none;
+    user-select:none;
+  }
+
+  .scene{
+    position:relative;
+    width:min(96vh,96vw);
+    height:min(96vh,96vw);
+    transform-style:preserve-3d;
+    transform-origin:50% 45%;
+    will-change:transform;
+    contain:layout style paint;
+  }
+  .fill{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+  .fl{position:absolute; width:17.6%; aspect-ratio:1; transform:translate(-50%,-50%); transform-style:preserve-3d}
+  .pop,.ly,.sh,.hl{position:absolute; inset:0; transform-style:preserve-3d}
+  .ly{width:100%; height:100%; transform:translateZ(calc(var(--z)*var(--s)))}
+  .sh{inset:10% -6% -14% 8%; border-radius:50%; background:radial-gradient(closest-side,rgba(0,0,0,.42),rgba(0,0,0,0)); transform:translateZ(calc(-24*var(--s)))}
+  .hl{border-radius:50%; pointer-events:none; transform:translateZ(calc(46*var(--s)));
+    background:radial-gradient(circle at 36% 30%,rgba(255,255,255,.14),rgba(255,255,255,0) 42%),radial-gradient(circle at 50% 50%,rgba(0,0,0,0) 62%,rgba(60,20,0,.3))}
+
+  .thread{fill:none; stroke:var(--thread); stroke-width:2.5; stroke-linecap:round}
+  .run .pop{animation:drop .52s cubic-bezier(.3,1.4,.5,1) both; animation-delay:var(--d)}
+  @keyframes drop{
+    0%{transform:translateY(-90px) scale(0) rotate(-90deg)}
+    100%{transform:none}
+  }
+  .run .thread{stroke-dasharray:1; animation:draw var(--T) linear both}
+  @keyframes draw{from{stroke-dashoffset:1} to{stroke-dashoffset:0}}
+  .needle{opacity:0; offset-path:path('M70 40 C 90 440, 210 650, 370 650 C 530 650, 640 440, 680 40'); offset-rotate:auto}
+  .run .needle{animation:travel var(--T) linear both}
+  @keyframes travel{0%{offset-distance:0%; opacity:1} 95%{opacity:1} 100%{offset-distance:100%; opacity:0}}
+
+  #flowers{position:absolute; inset:0}
+
+  @media (prefers-reduced-motion:reduce){
+    .run .pop,.run .thread,.scene.run{animation:none}
+    .run .needle{animation:none; opacity:0}
+  }
+
+  /* Auspicious Diya & Temple Glow Animations */
+  .diya-flame {
+    animation: diyaFlicker 1.8s ease-in-out infinite alternate;
+    transform-origin: 0 0;
+    filter: drop-shadow(0 0 12px #ffa200);
+    will-change: transform;
+  }
+  @keyframes diyaFlicker {
+    0% { transform: scale(0.96, 1.02) rotate(-1.5deg); }
+    50% { transform: scale(1.06, 0.94) rotate(1.5deg); }
+    100% { transform: scale(1.02, 1.05) rotate(-0.5deg); }
+  }
+  .diya-glow {
+    animation: auraPulse 3s ease-in-out infinite alternate;
+    transform-origin: 370px 380px;
+    will-change: opacity, transform;
+  }
+  @keyframes auraPulse {
+    0% { opacity: 0.65; transform: scale(0.96); }
+    100% { opacity: 0.95; transform: scale(1.04); }
+  }
+</style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="defs"></defs></svg>
+
+  <div class="scene" id="scene" role="img" aria-label="A sacred marigold garland woven around a glowing temple diya and golden arch">
+    <!-- 1. Real Sacred Temple Idol Backdrop -->
+    <svg class="fill" viewBox="0 0 740 740" style="transform:translateZ(calc(-60*var(--s)))">
+      <defs>
+        <!-- Soft Vignette to blend edges -->
+        <radialGradient id="idolVignette" cx="50%" cy="50%" r="52%">
+          <stop offset="65%" stop-color="#000" stop-opacity="0"/>
+          <stop offset="92%" stop-color="#171615" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#171615" stop-opacity="0.92"/>
+        </radialGradient>
+        
+        <!-- Divine Halo Glow behind Crown -->
+        <radialGradient id="haloAura" cx="50%" cy="30%" r="35%">
+          <stop offset="0%" stop-color="#ffb732" stop-opacity="0.45"/>
+          <stop offset="50%" stop-color="#ff7b00" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#ff7b00" stop-opacity="0"/>
+        </radialGradient>
+
+        <clipPath id="idolRoundedClip">
+          <rect x="0" y="0" width="740" height="740" rx="26"/>
+        </clipPath>
+      </defs>
+
+      <!-- Real Temple Idol Image with Rounded Frame -->
+      <g clip-path="url(#idolRoundedClip)">
+        <image
+          href="/assets/ganesha_temple_idol.jpg"
+          x="0"
+          y="0"
+          width="740"
+          height="740"
+          preserveAspectRatio="xMidYMid slice"
+        />
+
+        <!-- Soft Living Divine Halo behind Ganesha's Crown -->
+        <circle cx="370" cy="225" r="210" fill="url(#haloAura)" class="diya-glow"/>
+
+        <!-- Soft Vignette Blend on borders -->
+        <rect x="0" y="0" width="740" height="740" fill="url(#idolVignette)"/>
+      </g>
+    </svg>
+
+    <svg class="fill" viewBox="0 0 740 740" style="transform:translateZ(calc(-30*var(--s)))">
+      <path class="thread" pathLength="1" d="M70 40 C 90 440, 210 650, 370 650 C 530 650, 640 440, 680 40"/>
+    </svg>
+    <div id="flowers"></div>
+    <svg class="fill" viewBox="0 0 740 740" style="transform:translateZ(calc(70*var(--s)))">
+      <g class="needle">
+        <path d="M-18 0 L18 0" stroke="#9aa4b2" stroke-width="2.6" stroke-linecap="round"/>
+        <ellipse cx="-13" cy="0" rx="3.4" ry="1.1" fill="#fff"/>
+      </g>
+    </svg>
+  </div>
+
+<script>
+(function(){
+  var T=5.5, S=1000, pts=[], cum=[0], L=0, i;
+  var A=[[70,40],[90,440],[210,650],[370,650]], B=[[370,650],[530,650],[640,440],[680,40]];
+  function bez(P,t){var u=1-t;return [u*u*u*P[0][0]+3*u*u*t*P[1][0]+3*u*t*t*P[2][0]+t*t*t*P[3][0], u*u*u*P[0][1]+3*u*u*t*P[1][1]+3*u*t*t*P[2][1]+t*t*t*P[3][1]];}
+  for(i=0;i<=S;i++){var t=i/S*2; pts.push(t<=1?bez(A,t):bez(B,t-1)); if(i)L+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]), cum.push(L);}
+  function at(s){var k=0; while(k<S && cum[k+1]<s)k++; return pts[k];}
+  function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+  var TONE={
+    y:[['#ffe680','#f4b800'],['#ffdc58','#eaa600'],['#ffcf33','#e09500'],['#fbb81c','#cf7f00'],['#e89a0c','#b86a00']],
+    o:[['#ffb25a','#f07816'],['#ffa447','#e86a10'],['#fb9433','#dd5c0b'],['#f27f22','#c84a07'],['#dc650f','#a83a05']]
+  };
+  var EDGE={y:'#b87400',o:'#a63d06'}, d='';
+  ['y','o'].forEach(function(k){
+    TONE[k].forEach(function(c,n){
+      d+='<linearGradient id="g'+k+n+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+c[0]+'"/><stop offset="1" stop-color="'+c[1]+'"/></linearGradient>'+
+         '<g id="p'+k+n+'"><path d="M0 0C-9 -6 -17 -20 -14 -33C-13 -38 -9 -41 -5 -39C-3 -43 3 -43 5 -39C9 -41 13 -38 14 -33C17 -20 9 -6 0 0Z" fill="url(#g'+k+n+')" stroke="'+EDGE[k]+'" stroke-opacity=".45" stroke-width=".7"/>'+
+         '<path d="M0 -4C1 -14 -1 -24 0 -32" fill="none" stroke="'+EDGE[k]+'" stroke-opacity=".3" stroke-width=".8"/></g>';
+    });
+  });
+  document.getElementById('defs').innerHTML=d;
+
+  // [petal count, size, tone]
+  var RINGS=[[15,1.45,0],[13,1.2,1],[11,.98,2],[9,.76,3],[7,.56,4],[5,.36,4]];
+  // [ring, forced tone, size multiplier, depth z]: back rim, outer petals, then up to the centre of the dome
+  var LAYERS=[[0,4,.9,-16],[0,3,.95,-8],[0,-1,1,0],[1,-1,1,7],[2,-1,1,15],[3,-1,1,24],[4,-1,1,33],[5,-1,1,41]];
+
+  function flower(k,n){
+    var r=rng(n*977+13), rot=(r()*360).toFixed(0), html='<div class="sh"></div>';
+    LAYERS.forEach(function(Y){
+      var R=RINGS[Y[0]], off=r()*360, s='';
+      for(var j=0;j<R[0];j++){
+        var a=off+j*360/R[0]+(r()-.5)*10, sc=R[1]*Y[2]*(.9+r()*.25), sx=.85+r()*.35,
+            tn=Y[1]>=0?Y[1]:Math.max(0,Math.min(4,R[2]+(r()<.22?-1:r()>.85?1:0)));
+        s+='<use href="#p'+k+tn+'" transform="rotate('+a.toFixed(1)+') scale('+(sc*sx).toFixed(2)+' '+sc.toFixed(2)+')"/>';
+      }
+      if(Y[0]===5) s+='<circle r="5" fill="'+TONE[k][4][1]+'"/>';
+      html+='<svg class="ly" viewBox="-70 -70 140 140" style="--z:'+Y[3]+'"><g transform="rotate('+rot+')">'+s+'</g></svg>';
+    });
+    return html+'<div class="hl"></div>';
+  }
+
+  var pat='yoyoyyoyooooo'+'yoyoyoyooyoo', N=Math.round(L/62), out='';
+  for(i=0;i<N;i++){
+    var s=(i+.5)/N*L, p=at(s), dl=Math.max(s/L*T-.12,0).toFixed(2);
+    out+='<div class="fl" style="left:'+(p[0]/7.4).toFixed(2)+'%;top:'+(p[1]/7.4).toFixed(2)+'%"><div class="pop" style="--d:'+dl+'s">'+flower(pat[i%pat.length],i)+'</div></div>';
+  }
+  document.getElementById('flowers').innerHTML=out;
+
+  var sc=document.getElementById('scene');
+  var runTimer;
+  function play(){
+    clearTimeout(runTimer);
+    sc.classList.remove('run');
+    void sc.getBoundingClientRect();
+    sc.classList.add('run');
+    // Once garland stringing is complete, stop active animation cycle to release GPU/CPU
+    runTimer = setTimeout(function(){
+      sc.classList.remove('run');
+    }, Math.round(T * 1000 + 400));
+  }
+  var repBtn = document.getElementById('replay');
+  if (repBtn) repBtn.addEventListener('click',play);
+  
+  // URL param theme setup and cross-frame message listener
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var t = params.get('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  } catch(e){}
+
+  window.addEventListener('message', function(e) {
+    if (e.data === 'replay' || (e.data && e.data.type === 'replay')) {
+      play();
+    }
+  });
+
+  play();
+})();
+</script>
+</body>
+</html>

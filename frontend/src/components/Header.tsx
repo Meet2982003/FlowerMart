@@ -1,14 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { scrollToSection } from "./SmoothScroll";
+import { useScroll, useMotionValueEvent } from "motion/react";
 
 interface HeaderProps {
-  currentView?: "home" | "about" | "admin";
+  currentView?: "home" | "about" | "admin" | "mala";
   onAboutClick?: () => void;
   onHomeClick?: () => void;
   onAdminClick?: () => void;
+  onMalaClick?: () => void;
 }
 
 export default function Header({
@@ -16,19 +18,36 @@ export default function Header({
   onAboutClick,
   onHomeClick,
   onAdminClick,
+  onMalaClick,
 }: HeaderProps) {
   const [lang, setLang] = useState<"NL" | "EN">("EN");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
-    };
+  const { scrollY } = useScroll();
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  useMotionValueEvent(scrollY, "change", (current) => {
+    if (typeof current === "number") {
+      const prev = scrollY.getPrevious() ?? 0;
+      const direction = current - prev;
+
+      // Update scrolled glass style state
+      setIsScrolled(current > 20);
+
+      // Aceternity Floating Navbar hide/show logic:
+      if (current < 50) {
+        setVisible(true);
+      } else {
+        if (direction < -4) {
+          // Scrolling UP -> show
+          setVisible(true);
+        } else if (direction > 4) {
+          // Scrolling DOWN -> hide
+          setVisible(false);
+        }
+      }
+    }
+  });
 
   const handleNavClick = (sectionId?: string) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -36,13 +55,17 @@ export default function Header({
       onAboutClick?.();
       return;
     }
+    if (sectionId === "mala") {
+      onMalaClick?.();
+      return;
+    }
 
-    if (currentView === "about" || currentView === "admin") {
+    if (currentView === "about" || currentView === "admin" || currentView === "mala") {
       onHomeClick?.();
     }
 
     if (sectionId) {
-      if (currentView === "about" || currentView === "admin") {
+      if (currentView === "about" || currentView === "admin" || currentView === "mala") {
         setTimeout(() => scrollToSection(sectionId), 200);
       } else {
         scrollToSection(sectionId);
@@ -51,7 +74,11 @@ export default function Header({
   };
 
   return (
-    <header className={`top-header ${isScrolled ? "is-scrolled" : ""}`}>
+    <header
+      className={`top-header ${isScrolled ? "is-scrolled" : ""} ${
+        visible ? "is-visible" : "is-hidden"
+      }`}
+    >
       {/* Brand Logo */}
       <a
         href="#"
@@ -82,6 +109,15 @@ export default function Header({
             <a href="#inspiration" onClick={handleNavClick("inspiration")}>
               Inspiration
             </a>
+          </li>
+          <li>
+            <button
+              type="button"
+              className={`nav-text-btn ${currentView === "mala" ? "active" : ""}`}
+              onClick={handleNavClick("mala")}
+            >
+              Daily Mala
+            </button>
           </li>
           <li>
             <button
