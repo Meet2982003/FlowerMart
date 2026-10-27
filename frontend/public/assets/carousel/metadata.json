@@ -1,1 +1,37 @@
-{}
+{
+  "decorated cars": {
+    "title": "Decorated Cars",
+    "tag": "CAR DECORATION • 38 PHOTOS",
+    "description": "Bespoke bridal car decor, floral hood arrangements, and luxury wedding fleet styling handcrafted with fresh premium blooms.",
+    "category": "Car Decor",
+    "coverImage": "d231f7a7-8024-4026-bf1f-a0e01a2d86d1.jpeg"
+  },
+  "mundup": {
+    "title": "Royal Mandap Decorations",
+    "tag": "MANDAP & CEREMONY",
+    "description": "Grand ceremonial mandaps, cascading floral pillars, and sacred floral canopies designed for unforgettable wedding vows.",
+    "category": "Wedding Mandap",
+    "coverImage": "royal_mandap_01.jpg"
+  },
+  "mandap": {
+    "title": "Royal Mandap Decorations",
+    "tag": "MANDAP & CEREMONY",
+    "description": "Grand ceremonial mandaps, cascading floral pillars, and sacred floral canopies designed for unforgettable wedding vows.",
+    "category": "Wedding Mandap",
+    "coverImage": "royal_mandap_01.jpg"
+  },
+  "parties": {
+    "title": "Celebration & Party Decor",
+    "tag": "PARTY & BANQUET FLORALS",
+    "description": "Dramatic banquet centerpieces, cascading floral ceiling installations, and enchanting ambient party styling.",
+    "category": "Parties & Galas",
+    "coverImage": "luxury_gala_01.jpg"
+  },
+  "engagement": {
+    "title": "Engagement Ceremonies",
+    "tag": "ENGAGEMENT FLORAL STYLING",
+    "description": "Romantic pastel ring-ceremony stages, floral circular arches, and delicate aesthetic floral photo backdrops.",
+    "category": "Engagement",
+    "coverImage": "ring_ceremony_01.jpg"
+  }
+}
